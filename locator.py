@@ -16,10 +16,16 @@ def locate(text,path):
     for filename in total_file:
         try:
             with open(filename) as f:
-                      if text.lower() in f.read().lower():
-                          file_name.append(filename)
+                content=f.read().lower().split('\n')
+                line_no=[]
+                for no,line in enumerate(content):
+                      if text.lower() in line:
+                          line_no.append(no+1)
+                if line_no !=[]:
+                    file_name.append({"Filename":filename,"Lines":line_no})
         except: pass
-    
-    return file_name
-
+    if file_name !=[]:   
+        return file_name
+    else:
+        return "No match found"
 
